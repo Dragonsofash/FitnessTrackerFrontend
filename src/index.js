@@ -15,8 +15,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Register, Login, Navbar } from "./components";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import { Register, Login, Navbar, Activities, Routines } from "./components";
 const App = () => {
   // const [loggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState("");
@@ -30,19 +30,26 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <header>
         <Navbar />
         <Route exact path="/Register">
           <Register />
         </Route>
+
         <Route exact path="/Login">
           <Login setToken={setToken} />
         </Route>
-      </header>
+
+        <Route exact path="/Activities">
+          <Activities/>
+        </Route>
+
+        <Route exact path="/Routines">
+          <Routines/>
+        </Route>
+
       <Switch>
         <Route path="/"></Route>
       </Switch>
-      <footer></footer>
     </BrowserRouter>
   );
 };

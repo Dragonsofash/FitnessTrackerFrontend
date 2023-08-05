@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 // -see a Sign Up/Sign In form in the header/footer, on a tab (with or without matching route) or in a modal
 // -be able to sign up for a new account with valid username/password combination
 // -see meaningful messages if there are errors during registration, so that I may correct them
-// -see tabbed navigation for Routines and Activities (with matching routes)
+// -see tabbed navigation for Routines and Activities (with matching routes)(DONE)
 
 // As a registered user I want to:
 // -be able to log in with my username/password combination
