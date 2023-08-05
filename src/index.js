@@ -12,12 +12,13 @@
 // -see tabbed navigation for Routines, My Routines (once logged in), and Activities (with matching routes)
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Register, Login, Navbar } from "./components";
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState("");
 
   useEffect(() => {
