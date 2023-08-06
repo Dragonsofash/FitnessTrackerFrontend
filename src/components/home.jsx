@@ -1,6 +1,6 @@
 //make a homepage
 
-import Navbar from "./navBar"
+import Navbar from "./Navbar"
 import footprints from "../images/footprints.webp"
 import { Button } from "react-bootstrap/Button";
 import { Link } from "react-router-dom"
