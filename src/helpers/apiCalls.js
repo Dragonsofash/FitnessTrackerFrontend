@@ -1,26 +1,5 @@
 const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api";
 
-//base for other helpers
-const someFunction = async (token) => {
-  try {
-    const response = await fetch(`${BASE_URL}/someEndPoint`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        /* whatever things you need to send to the API */
-      }),
-    });
-    const result = await response.json();
-    console.log(result);
-    return result;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 const registerUser = async (username, password) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
@@ -67,4 +46,38 @@ const login = async (username, password) => {
   }
 };
 
-export { BASE_URL, registerUser, login };
+const myActivityData = async (setActivities) => {
+  try {
+    const response = await fetch(`${BASE_URL}/activities`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.json();
+    setActivities(result.reverse());
+    console.log(result);
+    return result
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+const myRoutineData = async (setRoutines) => {
+  try {
+  const response = await fetch(`${BASE_URL}/routines`, {
+    headers: {
+    'Content-Type': 'application/json',
+    },
+  });
+  
+  const result = await response.json();
+  setRoutines(result.reverse());
+  console.log(result);
+  return result
+  } catch (err) {
+  console.error(err);
+  }
+}
+
+export { BASE_URL, registerUser, login, myActivityData, myRoutineData };
