@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { myRoutineData } from "../helpers/apiCalls";
 
-export const Routines = ({ token }) => {
+const Routines = ({ token }) => {
   const [routines, setRoutines] = useState([]);
   const [addRoutines, setAddRoutines] = useState(false);
 

@@ -10,19 +10,18 @@ const RoutineForm = ({token, setName, name, setGoal, goal, id}) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [success, setSuccess] = useState(undefined);
   const [edit, setEdit] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createRoutine(name, goal, token, setSuccess);
+    createRoutine(name, goal, token)
     setName("");
     setGoal("");
   };
 
   const editPost = (e) => {
     e.preventDefault();
-    updateRoutine(id, token, name, goal, setSuccess);
+    updateRoutine(id, token, name, goal);
     setName("");
     setGoal("");
     setEdit(false);

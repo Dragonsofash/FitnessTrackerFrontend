@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ActivityForm from "./modals/ActivityForm";
 import Login from "./modals/Login";
 import Register from "./modals/Register";
 
