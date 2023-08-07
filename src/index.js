@@ -16,39 +16,77 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 // import "bootstrap/dist/css/bootstrap.min.css";
-import { Register, Login, Navbar, Activities, Routines } from "./components";
+import {
+  Home,
+  Navbar,
+  Activities,
+  Routines,
+  // MyRoutines,
+  // MyActivities,
+} from "./components";
 const App = () => {
-  // const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(undefined);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("");
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
+      setLoggedIn(true);
     }
   }, [token]);
 
+  const setAndStoreToken = (token) => {
+    localStorage.setItem("token", token);
+    setToken(token);
+  };
+
   return (
     <BrowserRouter>
-        <Navbar />
-        <Route exact path="/Register">
-          <Register />
-        </Route>
-
-        <Route exact path="/Login">
-          <Login setToken={setToken} />
+      <Navbar />
+      <Switch>
+        <Route path="/">
+          <Home loggedIn={loggedIn} token={token} setId={setId} />
         </Route>
 
         <Route exact path="/Activities">
-          <Activities/>
+          <Activities />
         </Route>
 
         <Route exact path="/Routines">
-          <Routines/>
+          <Routines loggedIn={loggedIn} token={token} setId={setId} />
         </Route>
 
-      <Switch>
-        <Route path="/"></Route>
+        {/* <Route exact path="/Register">
+        <Register
+          username={username}
+          password={password}
+          token={token}
+          setLoggedIn={setLoggedIn}
+          setUsername={setUsername}
+          setPassword={setPassword}
+          setToken={setAndStoreToken}
+        />
+        </Route> */}
+
+        {/* <Route exact path="/Login">
+        <Login
+          username={username}
+          password={password}
+          token={token}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          setUsername={setUsername}
+          setPassword={setPassword}
+          setToken={setAndStoreToken}
+        />
+      </Route> */}
       </Switch>
     </BrowserRouter>
   );

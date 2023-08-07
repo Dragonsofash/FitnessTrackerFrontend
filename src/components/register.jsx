@@ -1,20 +1,28 @@
-import { useState } from "react";
-import { BASE_URL, registerUser } from "../helpers/apiCalls";
+import React, { useState } from "react";
+import { BASE_URL, registerUser, checkForAccout } from "../helpers/apiCalls";
 
-export const Register = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+export const Register = ({
+  username, setUsername, password, setPassword,setToken, setLoggedIn
+}) => {
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+  const [passConfirm, setPassConfirm] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (event) => {
     setUsername(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(username);
-    registerUser();
+    registerUser(
+      username, password, setToken, setLoggedIn, setSuccess, setError
+    );
     setUsername("");
     setPassword("");
+    setPassConfirm("");
     console.log(password);
   };
 

@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import ActivityForm from "./modals/ActivityForm";
+import Login from "./modals/Login";
+import Register from "./modals/Register";
 
 export const Navbar = () => {
   const logOut = () => {
@@ -13,7 +16,8 @@ export const Navbar = () => {
       </Link>
       <Link to="/Activities">Activities</Link>
       <Link to="/Routines">Routines</Link>
-
+      <Register />
+      <Login />
     </>
   );
 };

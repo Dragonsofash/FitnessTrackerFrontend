@@ -1,6 +1,4 @@
 //make a homepage
-
-import Navbar from "./Navbar"
 import footprints from "../images/footprints.webp"
 import { Button } from "react-bootstrap/Button";
 import { Link } from "react-router-dom"
@@ -22,11 +20,14 @@ const Home = () => {
 
     return (
         <div id="home">
-            <Navbar/>
+            <nav>
+                <Link to="/register">Sign Up</Link>
+                <Link to="/login">Login</Link>
+            </nav>
             <h1>Welcome to Fitness Tracker</h1>
             <img src={footprints} alt="footprints"/>
-            <Button>Routines</Button>
-            <Button>Activities</Button>
+            <Button variant="primary" href="/routines">Routines</Button>
+            <Button variant="primary" href="/activities">Activities</Button>
             <footer>
                 <Link to="/register">Sign Up for FREE today!!</Link>
             </footer>
