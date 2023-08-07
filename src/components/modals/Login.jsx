@@ -5,10 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Login = ({
-  username,
-  setUsername,
-  password,
-  setPassword,
   setToken,
   loggedIn,
   setLoggedIn,
@@ -18,7 +14,14 @@ const Login = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+//   const setAndStoreToken = (token) => {
+//     localStorage.setItem("token", token);
+//     setToken(token);
+//   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     login(username, password, setLoggedIn, setToken, setError);

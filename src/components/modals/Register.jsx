@@ -5,10 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
 
 const Register = ({
-    username,
-    setUsername,
-    password,
-    setPassword,
     setToken,
     setLoggedIn, 
 }) => {
@@ -17,8 +13,14 @@ const Register = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
   const [error, setError] = useState("");
+//   const setAndStoreToken = (token) => {
+//     localStorage.setItem("token", token);
+//     setToken(token);
+//   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -4,12 +4,14 @@ import Modal from 'react-bootstrap/Modal';
 import { createRoutine, updateRoutine } from ".../helpers/apiCalls.jsx"
 import { Form } from 'react-bootstrap';
 
-const RoutineForm = ({token, setName, name, setGoal, goal, id}) => {
+const RoutineForm = ({token, id}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("");
   const [edit, setEdit] = useState(false);
 
   const handleSubmit = (e) => {

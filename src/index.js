@@ -24,14 +24,11 @@ import {
   // MyRoutines,
   // MyActivities,
 } from "./components";
+import Account from "./components/Account";
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(undefined);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [goal, setGoal] = useState("");
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
@@ -41,11 +38,6 @@ const App = () => {
       setLoggedIn(true);
     }
   }, [token]);
-
-  const setAndStoreToken = (token) => {
-    localStorage.setItem("token", token);
-    setToken(token);
-  };
 
   return (
     <BrowserRouter>
@@ -61,6 +53,10 @@ const App = () => {
 
         <Route exact path="/Routines">
           <Routines loggedIn={loggedIn} token={token} setId={setId} />
+        </Route>
+
+        <Route exact path="/Me">
+          <Account token={token} setId={setId} setEdit={setEdit} />
         </Route>
 
         {/* <Route exact path="/Register">
