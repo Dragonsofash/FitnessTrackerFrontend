@@ -51,6 +51,8 @@ const login = async (
       }),
     });
     const result = await response.json();
+    !result.success ? setError(result.error.message) : null;
+    result.data.token ? setLoggedIn(true) && setSuccess(true) : null;
     setToken(result.data.token);
     return result;
   } catch (err) {
