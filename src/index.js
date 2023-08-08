@@ -22,7 +22,6 @@ import {
   Activities,
   Routines,
   // MyRoutines,
-  // MyActivities,
   Login,
   Register,
 } from "./components";
@@ -30,9 +29,15 @@ import { Container } from "react-bootstrap";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(undefined);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [id, setId] = useState("");
   const [edit, setEdit] = useState(false);
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("");
+  const [duration, setDuration] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -66,18 +71,26 @@ const App = () => {
 
           <Route exact path="/Register">
             <Register
+              username={username}
+              password={password}
               token={token}
               setLoggedIn={setLoggedIn}
+              setUsername={setUsername}
+              setPassword={setPassword}
               setToken={setAndStoreToken}
             />
           </Route>
 
           <Route exact path="/Login">
             <Login
+              username={username}
+              password={password}
               token={token}
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               setToken={setAndStoreToken}
+              setUsername={setUsername}
+              setPassword={setPassword}
             />
           </Route>
         </Switch>

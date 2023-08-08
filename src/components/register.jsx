@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { registerUser } from "../helpers/apiCalls";
 
-export const Register = ({ setToken, setLoggedIn }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+export const Register = ({
+  username,
+  setUsername,
+  password,
+  setPassword,
+  setToken,
+  setLoggedIn,
+}) => {
   const [passConfirm, setPassConfirm] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const handleChange = (event) => {
-    setUsername(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setUsername(event.target.value);
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,26 +36,43 @@ export const Register = ({ setToken, setLoggedIn }) => {
 
   return (
     <div id="container">
-      <div id="navbar">Sign Up</div>
+      <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
-        <h1>Create Username</h1>
+        <label>Username:</label>
         <input
           type="text"
-          placeholder="Username"
+          required
           value={username}
-          onChange={handleChange}
-        ></input>
-        <h2>Create Password</h2>
+          placeholder="Enter your username"
+          minLength="8"
+          maxLength="20"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <label>Password:</label>
         <input
           type="password"
-          placeholder="Password"
+          required
           value={password}
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-        ></input>
+          placeholder="Enter your password"
+          minLength="8"
+          maxLength="20"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <label>Confirm Password:</label>
+        <input
+          type="password"
+          required
+          value={passConfirm}
+          placeholder="Re-enter your password"
+          minLength="8"
+          maxLength="20"
+          onChange={(e) => setPassConfirm(e.target.value)}
+        />
         <button type="submit">Create Account</button>
+        {password !== passConfirm ? <p>Passwords do not match</p> : null}
       </form>
+      {success ? <h2>Successfully registered!</h2> : null}
+      {error.length ? <p>{error}</p> : null}
     </div>
   );
 };

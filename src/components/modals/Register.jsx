@@ -14,21 +14,20 @@ const Register = ({ setToken, setLoggedIn }) => {
   const [password, setPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
   const [error, setError] = useState("");
-    const setAndStoreToken = (token) => {
-      localStorage.setItem("token", token);
-      setToken(token);
-    };
+  const setAndStoreToken = (token) => {
+    localStorage.setItem("token", token);
+    setToken(token);
+  };
 
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      console.log(username);
-      registerUser(username, password);
-      setUsername("");
-      setPassword("");
-      setPassConfirm("");
-      console.log(password);
-    };
-  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(username);
+    registerUser(username, password, setToken, setLoggedIn, setError);
+    setUsername("");
+    setPassword("");
+    setPassConfirm("");
+    console.log(password);
+  };
 
   return (
     <>

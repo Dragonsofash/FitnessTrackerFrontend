@@ -5,6 +5,7 @@ const registerUser = async (
   username,
   password,
   setToken,
+  token,
   setLoggedIn,
   setSuccess,
   setError
@@ -21,8 +22,7 @@ const registerUser = async (
       }),
     });
     const result = await response.json();
-    !result.success ? setError(result.error.message) : null;
-    localStorage.setItem("token", result.data.token);
+    localStorage.setItem(token, result.data.token);
     setToken(result.data.token);
     result.data.token ? setLoggedIn(true) && setSuccess(true) : null;
     console.log(result);
@@ -63,10 +63,6 @@ const login = async (
       }),
     });
     const result = await response.json();
-    // eslint-disable-next-line no-unused-expressions
-    !result.success ? setError(result.error.message) : null;
-    // eslint-disable-next-line no-unused-expressions
-    result.data.token ? setLoggedIn(true) && setSuccess(true) : null;
     setToken(result.data.token);
     return result;
   } catch (err) {
@@ -108,7 +104,7 @@ const myRoutineData = async (setRoutines) => {
   }
 };
 
-const createRoutine = async (token, setSuccess) => {
+const createRoutine = async (token, setSuccess, name, goal) => {
   try {
     const response = await fetch(`${BASE_URL}/routines`, {
       method: "POST",
@@ -130,7 +126,7 @@ const createRoutine = async (token, setSuccess) => {
   }
 };
 
-const updateRoutine = async (id, token, setSuccess) => {
+const updateRoutine = async (id, token, setSuccess, name, goal) => {
   try {
     const response = await fetch(`${BASE_URL}/routines/${id}`, {
       method: "PATCH",
