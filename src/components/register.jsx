@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { BASE_URL, registerUser, checkForAccout } from "../helpers/apiCalls";
+import { registerUser } from "../helpers/apiCalls";
 
-export const Register = () => {
+export const Register = ({ setToken, setLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
@@ -15,35 +15,19 @@ export const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(username);
-    registerUser(username, password);
+    registerUser(
+      username,
+      password,
+      setToken,
+      setLoggedIn,
+      setSuccess,
+      setError
+    );
     setUsername("");
     setPassword("");
     setPassConfirm("");
     console.log(password);
   };
-
-  // registerUser(username, password);
-  // const registerUser = async () => {
-  //   try {
-  //     const response = await fetch(`${BASE_URL}/users/register`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         user: {
-  //           username: username,
-  //           password: password,
-  //         },
-  //       }),
-  //     });
-  //     const result = await response.json();
-  //     console.log(result);
-  //     return result;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
 
   return (
     <div id="container">

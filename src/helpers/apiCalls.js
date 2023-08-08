@@ -51,7 +51,9 @@ const login = async (
       }),
     });
     const result = await response.json();
+    // eslint-disable-next-line no-unused-expressions
     !result.success ? setError(result.error.message) : null;
+    // eslint-disable-next-line no-unused-expressions
     result.data.token ? setLoggedIn(true) && setSuccess(true) : null;
     setToken(result.data.token);
     return result;
