@@ -1,6 +1,14 @@
+/* eslint-disable no-unused-expressions */
 const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api";
 
-const registerUser = async (username, password) => {
+const registerUser = async (
+  username,
+  password,
+  setToken,
+  setLoggedIn,
+  setSuccess,
+  setError
+) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
@@ -13,6 +21,10 @@ const registerUser = async (username, password) => {
       }),
     });
     const result = await response.json();
+    !result.success ? setError(result.error.message) : null;
+    localStorage.setItem("token", result.data.token);
+    setToken(result.data.token);
+    result.data.token ? setLoggedIn(true) && setSuccess(true) : null;
     console.log(result);
     return result;
   } catch (err) {
