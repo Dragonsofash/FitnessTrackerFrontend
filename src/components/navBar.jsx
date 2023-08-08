@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button, Navbar as Navigation, Nav } from "react-bootstrap";
 import Login from "./modals/Login";
 import Register from "./modals/Register";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Navbar = () => {
   const history = useHistory();
@@ -17,7 +18,13 @@ const Navbar = () => {
     history.push("/Routines");
   };
   const account = () => {
-    history.push("MyRoutines");
+    history.push("/MyRoutines");
+  };
+  const login = () => {
+    history.push("/Login");
+  };
+  const register = () => {
+    history.push("/Register");
   };
   const logOut = () => {
     localStorage.removeItem("token");
@@ -35,8 +42,10 @@ const Navbar = () => {
         </Nav>
       </Navigation.Collapse>
       <Nav>
-        <Register />
-        <Login />
+        {/* <Register />
+        <Login /> */}
+        <Button onClick={login}>Login</Button>
+        <Button onClick={register}>Register</Button>
         <Button onClick={logOut}>Logout</Button>
       </Nav>
     </Navigation>

@@ -21,18 +21,17 @@ export const Activities = ({ token }) => {
   const [activities, setActivities] = useState([]);
   const [addActivity, setAddActivity] = useState(false);
 
-  //   const checkToken = () => {
-  //     if (token.length > 0) {
-  //       setAddActivity(true);
-  //     }
-  //   };
+    const checkToken = () => {
+      if (token.length > 0) {
+        setAddActivity(true);
+      }
+    };
 
   useEffect(() => {
     myActivityData(setActivities);
-    // checkToken();
-  }, []);
-  //[token] add that later
-
+    checkToken();
+  }, [token]);
+  
   return (
     <>
       {addActivity === true && <Link to="/Activities/Add">Add activity</Link>}

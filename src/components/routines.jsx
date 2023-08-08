@@ -16,17 +16,16 @@ const Routines = ({ token }) => {
   const [routines, setRoutines] = useState([]);
   const [addRoutines, setAddRoutines] = useState(false);
 
-  //   const checkToken = () => {
-  //     if (token.length > 0) {
-  //       setAddActivity(true);
-  //     }
-  //   };
+    const checkToken = () => {
+      if (token.length > 0) {
+        setAddRoutines(true);
+      }
+    };
 
   useEffect(() => {
     myRoutineData(setRoutines);
-    // checkToken();
-  }, []);
-  //[token] add that later
+    checkToken();
+  }, [token]);
 
   return (
     <>

@@ -23,6 +23,8 @@ import {
   Routines,
   // MyRoutines,
   // MyActivities,
+  Login,
+  Register,
 } from "./components";
 import { Container } from "react-bootstrap";
 
@@ -57,30 +59,30 @@ const App = () => {
             <Routines loggedIn={loggedIn} token={token} setId={setId} />
           </Route>
 
-          {/* <Route exact path="/Register">
-        <Register
-          username={username}
-          password={password}
-          token={token}
-          setLoggedIn={setLoggedIn}
-          setUsername={setUsername}
-          setPassword={setPassword}
-          setToken={setAndStoreToken}
-        />
-        </Route> */}
+          <Route exact path="/Register">
+            <Register
+              // username={username}
+              // password={password}
+              token={token}
+              setLoggedIn={setLoggedIn}
+              // setUsername={setUsername}
+              // setPassword={setPassword}
+              // setToken={setAndStoreToken}
+            />
+          </Route>
 
-          {/* <Route exact path="/Login">
-        <Login
-          username={username}
-          password={password}
-          token={token}
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
-          setUsername={setUsername}
-          setPassword={setPassword}
-          setToken={setAndStoreToken}
-        />
-        </Route> */}
+          <Route exact path="/Login">
+            <Login
+              // username={username}
+              // password={password}
+              token={token}
+              // loggedIn={loggedIn}
+              // setLoggedIn={setLoggedIn}
+              // setUsername={setUsername}
+              // setPassword={setPassword}
+              // setToken={setAndStoreToken}
+            />
+          </Route>
         </Switch>
       </Container>
     </BrowserRouter>
