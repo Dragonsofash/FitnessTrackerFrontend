@@ -15,6 +15,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { myActivityData } from "../helpers/apiCalls";
+import { Card, Container } from "react-bootstrap";
 
 export const Activities = ({ token }) => {
   const [activities, setActivities] = useState([]);
@@ -36,16 +37,18 @@ export const Activities = ({ token }) => {
     <>
       {addActivity === true && <Link to="/Activities/Add">Add activity</Link>}
       {activities.length > 0 && (
-        <div>
+        <Container>
           {activities.map((activity) => (
-            <div key={activity._id}>
-              <h3>{activity.name}</h3>
-              <p>{activity.description}</p>
-              <p>{activity.duration}</p>
-              <p>{activity.count}</p>
-            </div>
+            <Card key={activity._id}>
+              <Card.Body>
+                <Card.Title>{activity.name}</Card.Title>
+                <Card.Text>{activity.description}</Card.Text>
+                <Card.Text>{activity.duration}</Card.Text>
+                <Card.Text>{activity.count}</Card.Text>
+              </Card.Body>
+            </Card>
           ))}
-        </div>
+        </Container>
       )}
     </>
   );

@@ -1,9 +1,8 @@
 //make a homepage
-import footprints from "../images/footprints.webp"
+import footprints from "../images/footprints.webp";
 import Button from "react-bootstrap/Button";
-import Login from "./modals/Login";
 import Register from "./modals/Register";
-import { ButtonGroup } from "react-bootstrap";
+import { ButtonGroup, Container, Nav } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 // As an unregistered visitor I want to:
@@ -20,34 +19,34 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 // -see tabbed navigation for Routines, My Routines (once logged in), and Activities (with matching routes)
 
 const Home = () => {
-    const history = useHistory()
+  const history = useHistory();
 
-    const handleActivities =  () => {
-        history.push("/Activities")
-    }
+  const handleActivities = () => {
+    history.push("/Activities");
+  };
 
-    const handleRoutines = () => {
-        history.push("/Routines")
-    }
+  const handleRoutines = () => {
+    history.push("/Routines");
+  };
 
-    return (
-        <div id="home">
-            <nav>
-                <Login />
-                <Register />
-            </nav>
-            <h1>Welcome to Fitness Tracker</h1>
-            {/* <img src={footprints} alt="footprints"/> */}
-            <ButtonGroup id="routes">
-                <Button variant="primary" onClick={handleRoutines} >Routines</Button>
-                <Button variant="primary" onClick={handleActivities} >Activities</Button>
-            </ButtonGroup>
-            
-            <footer>
-                <Register>Sign Up for FREE today!!</Register>
-            </footer>
-        </div>
-    )
-}
+  return (
+    <Container fluid>
+      <h1>Welcome to Fitness Tracker</h1>
+      <img src={footprints} alt="footprints" height="20px" />
+      <ButtonGroup id="routes">
+        <Button variant="primary" onClick={handleRoutines}>
+          Routines
+        </Button>
+        <Button variant="primary" onClick={handleActivities}>
+          Activities
+        </Button>
+      </ButtonGroup>
+
+      <footer>
+        <Register>Sign Up for FREE today!!</Register>
+      </footer>
+    </Container>
+  );
+};
 
 export default Home;

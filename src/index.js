@@ -24,6 +24,7 @@ import {
   // MyRoutines,
   // MyActivities,
 } from "./components";
+import { Container } from "react-bootstrap";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(undefined);
@@ -41,21 +42,22 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <Switch>
-        <Route exact path="/">
-          <Home loggedIn={loggedIn} token={token} setId={setId} />
-        </Route>
+      <Container fluid>
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <Home loggedIn={loggedIn} token={token} setId={setId} />
+          </Route>
 
-        <Route exact path="/Activities">
-          <Activities />
-        </Route>
+          <Route exact path="/Activities">
+            <Activities />
+          </Route>
 
-        <Route exact path="/Routines">
-          <Routines loggedIn={loggedIn} token={token} setId={setId} />
-        </Route>
+          <Route exact path="/Routines">
+            <Routines loggedIn={loggedIn} token={token} setId={setId} />
+          </Route>
 
-        {/* <Route exact path="/Register">
+          {/* <Route exact path="/Register">
         <Register
           username={username}
           password={password}
@@ -67,7 +69,7 @@ const App = () => {
         />
         </Route> */}
 
-        {/* <Route exact path="/Login">
+          {/* <Route exact path="/Login">
         <Login
           username={username}
           password={password}
@@ -78,8 +80,9 @@ const App = () => {
           setPassword={setPassword}
           setToken={setAndStoreToken}
         />
-      </Route> */}
-      </Switch>
+        </Route> */}
+        </Switch>
+      </Container>
     </BrowserRouter>
   );
 };

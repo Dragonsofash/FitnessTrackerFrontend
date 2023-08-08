@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { Button, Navbar as Navigation, Nav } from "react-bootstrap";
 import Login from "./modals/Login";
 import Register from "./modals/Register";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { Button, Nav } from "react-bootstrap";
 
-export const Navbar = () => {
+const Navbar = () => {
   const history = useHistory();
 
   const home = () => {
@@ -24,15 +24,22 @@ export const Navbar = () => {
     history.push("/");
   };
   return (
-    <Nav className="lg">
-      <Button onClick={home}>Home</Button>
-      <Button onClick={routines}>Routines</Button>
-      <Button onClick={activities}>Activities</Button>
-      <Button onClick={account}>MyAccount</Button>
-      <Register />
-      <Login />
-      <Button onClick={logOut}>Logout</Button>
-    </Nav>
+    <Navigation collapse="lg">
+      <Navigation.Brand onClick={home}>Fitness Tracker</Navigation.Brand>
+      <Navigation.Toggle aria-controls="basic-navbar-nav" />
+      <Navigation.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Button onClick={routines}>Routines</Button>
+          <Button onClick={activities}>Activities</Button>
+          <Button onClick={account}>My Account</Button>
+        </Nav>
+      </Navigation.Collapse>
+      <Nav>
+        <Register />
+        <Login />
+        <Button onClick={logOut}>Logout</Button>
+      </Nav>
+    </Navigation>
   );
 };
 
