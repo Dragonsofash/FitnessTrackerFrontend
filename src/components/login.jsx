@@ -1,8 +1,20 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+// Temporarily disabled until I figure out the modal
+
+import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import { login } from "../helpers/apiCalls";
 
-export const Login = () => {
+const Login = ({
+  // username,
+  // setUsername,
+  // password,
+  // setPassword,
+  setToken,
+  loggedIn,
+  setLoggedIn,
+}) => {
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,16 +25,15 @@ export const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(username);
-    login();
+    console.log(password);
+    login(username, password, setLoggedIn, setToken, setSuccess, setError);
     setUsername("");
     setPassword("");
-    console.log(password);
-    window.location.replace("/Login");
   };
 
-  login(username, password);
-
-  return (
+  return loggedIn ? (
+    <Redirect to="/" />
+  ) : (
     <div id="container">
       <div id="navbar">Login</div>
       <form onSubmit={handleSubmit}>
