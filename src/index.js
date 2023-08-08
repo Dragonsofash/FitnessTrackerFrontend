@@ -24,7 +24,7 @@ import {
   // MyRoutines,
   // MyActivities,
 } from "./components";
-import Account from "./components/Account";
+
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [token, setToken] = useState("");
@@ -43,7 +43,7 @@ const App = () => {
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           <Home loggedIn={loggedIn} token={token} setId={setId} />
         </Route>
 
@@ -53,10 +53,6 @@ const App = () => {
 
         <Route exact path="/Routines">
           <Routines loggedIn={loggedIn} token={token} setId={setId} />
-        </Route>
-
-        <Route exact path="/Me">
-          <Account token={token} setId={setId} setEdit={setEdit} />
         </Route>
 
         {/* <Route exact path="/Register">
