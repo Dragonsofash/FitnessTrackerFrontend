@@ -40,7 +40,12 @@ const App = () => {
       setToken(storedToken);
       setLoggedIn(true);
     }
-  }, [token]);
+  }, []);
+
+  const setAndStoreToken = (token) => {
+    localStorage.setItem("token", token);
+    setToken(token);
+  };
 
   return (
     <BrowserRouter>
@@ -61,26 +66,18 @@ const App = () => {
 
           <Route exact path="/Register">
             <Register
-              // username={username}
-              // password={password}
               token={token}
               setLoggedIn={setLoggedIn}
-              // setUsername={setUsername}
-              // setPassword={setPassword}
-              // setToken={setAndStoreToken}
+              setToken={setAndStoreToken}
             />
           </Route>
 
           <Route exact path="/Login">
             <Login
-              // username={username}
-              // password={password}
               token={token}
-              // loggedIn={loggedIn}
-              // setLoggedIn={setLoggedIn}
-              // setUsername={setUsername}
-              // setPassword={setPassword}
-              // setToken={setAndStoreToken}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              setToken={setAndStoreToken}
             />
           </Route>
         </Switch>
