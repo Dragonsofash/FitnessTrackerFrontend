@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../helpers/apiCalls";
 import { Alert, Button, Container, Form } from "react-bootstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Login = ({ setToken, username, setUsername, setAndStoreUsername }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,6 +18,7 @@ const Login = ({ setToken, username, setUsername, setAndStoreUsername }) => {
     setAndStoreUsername(username);
     setUsername("");
     setPassword("");
+    history.push("/");
   };
 
   return (

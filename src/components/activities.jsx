@@ -33,6 +33,8 @@ export const Activities = ({ token }) => {
     if (storedToken) {
       console.log(addActivity);
       setAddActivity(true);
+    } else {
+      setAddActivity(false);
     }
   };
 

@@ -7,11 +7,15 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom";
+import { useEffect, useState } from "react";
+
 // import Login from "./modals/Login";
 // import Register from "./modals/Register";
 
-const Navbar = ({ isLoggedIn, onLogout }) => {
+const Navbar = ({ isLoggedIn, onLogout, token }) => {
   const history = useHistory();
+  const [addRoutines, setAddRoutines] = useState(false);
+  const [newUser, setNewUser] = useState(true);
 
   const home = () => {
     history.push("/");
@@ -23,7 +27,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
     history.push("/Routines");
   };
   const account = () => {
-    history.push("/MyRoutines");
+    history.push("/Routines/MyRoutines");
   };
   const login = () => {
     history.push("/Login");
@@ -33,8 +37,26 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
   };
   const logOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    setNewUser(true);
     history.push("/");
   };
+
+  const checkToken = () => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setAddRoutines(true);
+      setNewUser(false);
+    } else {
+      setAddRoutines(false);
+      setNewUser(true);
+    }
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, [token]);
+
   return (
     <Navigation expand="lg">
       <Navigation.Brand onClick={home}>Fitness Tracker</Navigation.Brand>
@@ -58,16 +80,25 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
           <Button onClick={home}>Home</Button>
           <Button onClick={routines}>Routines</Button>
           <Button onClick={activities}>Activities</Button>
-          <Button onClick={account}>My Account</Button>
+
+          {addRoutines === true && (
+            <Button onClick={account}>My Routines</Button>
+          )}
         </Nav>
       </Navigation.Collapse>
       <Navigation.Collapse id="navbar-collapse">
         <Nav>
           {/* <Register />
         <Login /> */}
-          <Button onClick={login}>Login</Button>
-          <Button onClick={register}>Register</Button>
-          <Button onClick={logOut}>Logout</Button>
+
+          {newUser === true && (
+            <>
+              <Button onClick={login}>Login</Button>
+              <Button onClick={register}>Register</Button>
+            </>
+          )}
+
+          {newUser === false && <Button onClick={logOut}>Logout</Button>}
         </Nav>
       </Navigation.Collapse>
     </Navigation>

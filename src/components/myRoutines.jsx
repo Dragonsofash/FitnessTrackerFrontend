@@ -1,10 +1,11 @@
 // As a registered user on the My Routines tab, I want to:
-// -be shown a form to create a new routine
-// -the form should have text fields for name and goal
-// -for each routine which is owned by me I should
+// -be shown a form to create a new routine(DONE)
+// -the form should have text fields for name and goal(DONE)
+
+// -for each routine which is owned by me I should:
 // --be able to update the name and goal for the routine
 // --be able to delete the entire routine
-// --be able to add a routine to a routine via a small form which has a dropdown for all MyRoutines, and inputs for count and duration
+// --be able to add an activity to a routine via a small form which has a dropdown for all MyRoutines, and inputs for count and duration
 // --be able to update the duration or count of any routine on the routine
 // --be able to remove any routine from the routine
 
@@ -15,11 +16,11 @@
 
 import { useEffect, useState } from "react";
 import { personalRoutineData } from "../helpers/apiCalls";
-import { Card, Container } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
-export const MyRoutines = ({ token, username, setUsername }) => {
+export const MyRoutines = ({ token, username, setUsername, goal, setGoal, name, setName, id, setId }) => {
   const [MyRoutines, setMyRoutines] = useState([]);
   const [addRoutine, setAddRoutine] = useState(false);
 
@@ -36,30 +37,48 @@ export const MyRoutines = ({ token, username, setUsername }) => {
     }
   };
 
+  const editRoutineButton =(routine)=>{
+    setName(routine.name);
+    setGoal(routine.goal);
+    setId(routine._id);
+    history.push("/EditRoutine")
+  }
+
   useEffect(() => {
     checkToken();
-    personalRoutineData(token, username);
-  }, [token]);
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+    personalRoutineData(token, username, setMyRoutines);
+  }, [setUsername, token, username]);
 
   return (
     <>
-      {addRoutine === true && (
-        <Button onClick={handleAddMyRoutines}>Add Routine</Button>
-      )}
-      {MyRoutines && (
-        <Container>
-          {MyRoutines.map((routine) => (
-            <Card key={routine._id}>
-              <Card.Body>
-                <Card.Title>{routine.name}</Card.Title>
-                <Card.Text>{routine.description}</Card.Text>
-                <Card.Text>{routine.duration}</Card.Text>
-                <Card.Text>{routine.count}</Card.Text>
-              </Card.Body>
-            </Card>
-          ))}
-        </Container>
-      )}
+      <h1>Ready to get to Work, {username}?</h1>
+      <Button onClick={handleAddMyRoutines}>Add Routine</Button>
+      {MyRoutines.map((routine) => (
+        <Card key={routine._id} className="mb-3">
+          <Card.Body>
+            <Card.Title>
+              {routine.name} || {routine.creatorName}
+            </Card.Title>
+            <Card.Text>Goal: {routine.goal}</Card.Text>
+            <Card.Text>Activities:</Card.Text>
+            <ul>
+              {routine.activities.map((activity) => (
+                <li key={activity.id}>
+                  <h4>{activity.name}</h4>
+                  <p>{activity.description}</p>
+                  <p>{activity.duration}</p>
+                  <p>{activity.count}</p>
+                  <Button onClick={editRoutineButton}></Button>
+                </li>
+              ))}
+            </ul>
+          </Card.Body>
+        </Card>
+      ))}
     </>
   );
 };

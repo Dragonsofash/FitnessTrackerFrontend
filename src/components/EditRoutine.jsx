@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   myActivityData,
-  createRoutine,
-  AddActivityToRoutine,
+  updateRoutine,
 } from "../helpers/apiCalls";
 import { Button, Container, Dropdown, Form } from "react-bootstrap";
 
-const AddRoutines = ({ token }) => {
-  const [name, setName] = useState("");
-  const [goal, setGoal] = useState("");
+const EditRoutine = ({ token, goal, setGoal, name, setName, id, setId }) => {
   const [activities, setActivities] = useState([]);
   const [selectedActivities, setSelectedActivities] = useState([]);
   const history = useHistory();
@@ -20,9 +17,9 @@ const AddRoutines = ({ token }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    updateRoutine(name, goal, token);
     setName("");
     setGoal("");
-    createRoutine(name, goal, token);
     history.push("/Routines/MyRoutines");
   };
 
@@ -83,4 +80,4 @@ const AddRoutines = ({ token }) => {
   );
 };
 
-export default AddRoutines;
+export default EditRoutine;

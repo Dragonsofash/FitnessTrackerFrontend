@@ -75,23 +75,23 @@ const myRoutineData = async (setRoutines) => {
   }
 };
 
-const createRoutine = async (token, setSuccess, name, goal) => {
+const createRoutine = async (name, goal, token) => {
   try {
     const response = await fetch(`${BASE_URL}/routines`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
         name,
         goal,
-        isPublic: true,
-      }),
+        isPublic: true
+      })
     });
     const result = await response.json();
-    result.success ? setSuccess(true) : setSuccess(false);
-    return result;
+    console.log(result);
+    return result
   } catch (err) {
     console.error(err);
   }
@@ -128,7 +128,7 @@ const AddActivityToRoutine = async (
   }
 };
 
-const updateRoutine = async (routineId, token, setSuccess, name, goal) => {
+const updateRoutine = async (routineId, token, name, goal) => {
   try {
     const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
       method: "PATCH",
@@ -142,7 +142,6 @@ const updateRoutine = async (routineId, token, setSuccess, name, goal) => {
       }),
     });
     const result = await response.json();
-    result.success ? setSuccess(true) : setSuccess(false);
     return result;
   } catch (err) {
     console.error(err);
@@ -187,7 +186,7 @@ const postActivity = async (name, description, token) => {
   }
 };
 
-const personalRoutineData = async (token, username) => {
+const personalRoutineData = async (token, username, setMyRoutines) => {
   try {
     const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
       headers: {
@@ -197,6 +196,7 @@ const personalRoutineData = async (token, username) => {
     });
     const result = await response.json();
     console.log(result);
+    setMyRoutines(result.reverse());
     return result;
   } catch (err) {
     console.error(err);

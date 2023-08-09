@@ -25,7 +25,11 @@ const Routines = ({ token, isLoggedIn }) => {
 
   const checkToken = () => {
     const storedToken = localStorage.getItem("token");
-    setAddRoutines(true);
+    if (storedToken) {
+      setAddRoutines(true);
+    } else {
+      setAddRoutines(false);
+    }
   };
 
   useEffect(() => {

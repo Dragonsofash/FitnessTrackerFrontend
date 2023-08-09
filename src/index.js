@@ -25,6 +25,8 @@ import {
   Login,
   Register,
   AddActivity,
+  AddRoutines,
+  EditRoutine,
 } from "./components";
 import { Container } from "react-bootstrap";
 
@@ -32,6 +34,9 @@ const App = () => {
   const [token, setToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [goal, setGoal] = useState("");
+  const [name, setName] = useState("");
+  const [id, setId] = useState(0);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -63,7 +68,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Container fluid>
-        <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} token={token} />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -106,6 +111,28 @@ const App = () => {
               token={token}
               username={username}
               setUsername={setUsername}
+              name={name}
+              setName={setName}
+              goal={goal}
+              setGoal={setGoal}
+              id={id}
+              setId={setId}
+            />
+          </Route>
+
+          <Route>
+            <AddRoutines token={token} />
+          </Route>
+
+          <Route>
+            <EditRoutine
+              token={token}
+              name={name}
+              setName={setName}
+              goal={goal}
+              setGoal={setGoal}
+              id={id}
+              setId={setId}
             />
           </Route>
         </Switch>

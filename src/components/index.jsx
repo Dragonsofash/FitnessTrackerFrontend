@@ -7,3 +7,5 @@ export { default as Routines } from "./Routines.jsx";
 export { default as Activities } from "./Activities.jsx";
 export { default as MyRoutines } from "./MyRoutines.jsx";
 export { default as AddActivity } from "./AddActivity.jsx";
+export {default as AddRoutines} from "./AddRoutines.jsx";
+export {default as EditRoutine} from "./EditRoutine.jsx";
