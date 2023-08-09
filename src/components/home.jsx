@@ -1,9 +1,8 @@
 //make a homepage
 import footprints from "../images/footprints.webp";
 import Button from "react-bootstrap/Button";
-import Register from "./modals/Register";
-import { ButtonGroup, Container, Nav } from "react-bootstrap";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
 // As an unregistered visitor I want to:
 // -see a Sign Up/Sign In form in the header/footer, on a tab (with or without matching route) or in a modal(DONE)
@@ -19,31 +18,24 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 // -see tabbed navigation for Routines, My Routines (once logged in), and Activities (with matching routes)(DONE)
 
 const Home = () => {
-  const history = useHistory();
-
-  const handleActivities = () => {
-    history.push("/Activities");
-  };
-
-  const handleRoutines = () => {
-    history.push("/Routines");
-  };
-
   return (
     <Container fluid>
       <h1>Welcome to Fitness Tracker</h1>
       <img src={footprints} alt="footprints" height="20px" />
-      <ButtonGroup id="routes">
-        <Button variant="primary" onClick={handleRoutines}>
-          Routines
-        </Button>
-        <Button variant="primary" onClick={handleActivities}>
-          Activities
-        </Button>
-      </ButtonGroup>
+      <Button as={Link} to="/routines" variant="primary" className="mr-2 mt-4">
+        View Routines
+      </Button>
+      <Button as={Link} to="/activities" variant="primary" className="mt-4">
+        View Activities
+      </Button>
 
-      <footer>
-        <Register>Sign Up for FREE today!!</Register>
+      <footer className="mt-5 text-center">
+        <p>
+          Don't have an account?{" "}
+          <Button as={Link} to="/register" variant="primary">
+            Sign Up
+          </Button>
+        </p>
       </footer>
     </Container>
   );

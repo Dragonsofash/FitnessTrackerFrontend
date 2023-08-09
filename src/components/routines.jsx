@@ -9,13 +9,11 @@
 // -be able to click on an activity name (shown in a list of activities on a routine), and see a list of all public routines which feature it
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { myRoutineData } from "../helpers/apiCalls";
-import { Button } from "react-bootstrap";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { Button, Card, Container } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
 
-
-const Routines = ({ token }) => {
+const Routines = ({ token, isLoggedIn }) => {
   const [routines, setRoutines] = useState([]);
   const [addRoutines, setAddRoutines] = useState(false);
 
@@ -27,8 +25,8 @@ const Routines = ({ token }) => {
 
   const checkToken = () => {
     const storedToken = localStorage.getItem("token");
-      setAddRoutines(true);
-    }
+    setAddRoutines(true);
+  };
 
   useEffect(() => {
     myRoutineData(setRoutines);
@@ -36,30 +34,47 @@ const Routines = ({ token }) => {
   }, [token]);
 
   return (
-    <>
-      {addRoutines === true && <Button onClick={handleRoutines}>My Routines</Button>}
-      {routines && (
-        <div>
-          {routines.map((routine) => (
-            <div key={routine._id}>
-              <h3>{routine.name}</h3>
-              <p>{routine.goal}</p>
-              <p>{routine.creatorName}</p>
-              <div>
+    <Container>
+      <h2>Routines</h2>
+      {/* {addRoutines === true && (
+        <Button onClick={handleRoutines}>My Routines</Button>
+      )} */}
+      <div>
+        {routines.map((routine) => (
+          <Card key={routine._id} className="mb-3">
+            <Card.Body>
+              <Card.Title>
+                {routine.name} || {routine.creatorName}
+              </Card.Title>
+              <Card.Text>Goal: {routine.goal}</Card.Text>
+              <Card.Text>Activities:</Card.Text>
+              <ul>
                 {routine.activities.map((activity) => (
-                  <div key={activity._id}>
-                    <p>{activity.name}</p>
+                  <li key={activity.id}>
+                    <h4>{activity.name}</h4>
                     <p>{activity.description}</p>
                     <p>{activity.duration}</p>
                     <p>{activity.count}</p>
-                  </div>
+                  </li>
                 ))}
-              </div>
-            </div>
-          ))}
-        </div>
+              </ul>
+              {isLoggedIn && (
+                <>
+                  <Button variant="primary" className="mr-2">
+                    Add to My Routines
+                  </Button>
+                </>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      {isLoggedIn && (
+        <Link to="/create-routine">
+          <Button variant="success">Create New Routine</Button>
+        </Link>
       )}
-    </>
+    </Container>
   );
 };
 

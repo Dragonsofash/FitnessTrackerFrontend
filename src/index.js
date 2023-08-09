@@ -15,7 +15,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Home,
   Navbar,
@@ -30,13 +30,14 @@ import { Container } from "react-bootstrap";
 
 const App = () => {
   const [token, setToken] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
-    };
+    }
     const storedUsername = localStorage.getItem("username");
     if (storedUsername) {
       setUsername(storedUsername);
@@ -53,10 +54,16 @@ const App = () => {
     setUsername(username);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setToken("");
+    localStorage.removeItem("token");
+  };
+
   return (
     <BrowserRouter>
       <Container fluid>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -71,11 +78,23 @@ const App = () => {
           </Route>
 
           <Route exact path="/Register">
-            <Register token={token} setToken={setAndStoreToken} username={username} setUsername={setUsername} setAndStoreUsername={setAndStoreUsername} />
+            <Register
+              token={token}
+              setToken={setAndStoreToken}
+              username={username}
+              setUsername={setUsername}
+              setAndStoreUsername={setAndStoreUsername}
+            />
           </Route>
 
           <Route exact path="/Login">
-            <Login token={token} setToken={setAndStoreToken} username={username} setUsername={setUsername} setAndStoreUsername={setAndStoreUsername}/>
+            <Login
+              token={token}
+              setToken={setAndStoreToken}
+              username={username}
+              setUsername={setUsername}
+              setAndStoreUsername={setAndStoreUsername}
+            />
           </Route>
 
           <Route exact path="/Activities/Add">
@@ -83,9 +102,12 @@ const App = () => {
           </Route>
 
           <Route exact path="/Routines/MyRoutines">
-            <MyRoutines token={token} username={username} setUsername={setUsername}/>
+            <MyRoutines
+              token={token}
+              username={username}
+              setUsername={setUsername}
+            />
           </Route>
-
         </Switch>
       </Container>
     </BrowserRouter>

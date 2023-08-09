@@ -84,8 +84,8 @@ const createRoutine = async (token, setSuccess, name, goal) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        name: "Long Cardio Routine",
-        goal: "To get your heart pumping!",
+        name,
+        goal,
         isPublic: true,
       }),
     });
@@ -97,21 +97,69 @@ const createRoutine = async (token, setSuccess, name, goal) => {
   }
 };
 
-const updateRoutine = async (id, token, setSuccess, name, goal) => {
+const AddActivityToRoutine = async (
+  token,
+  routineId,
+  activityId,
+  count,
+  duration
+) => {
   try {
-    const response = await fetch(`${BASE_URL}/routines/${id}`, {
+    const response = await fetch(
+      `${BASE_URL}/routines/${routineId}/activities`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          activityId,
+          count,
+          duration,
+        }),
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const updateRoutine = async (routineId, token, setSuccess, name, goal) => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        name: "Long Cardio Day",
-        goal: "To get your heart pumping!",
+        name,
+        goal,
       }),
     });
     const result = await response.json();
     result.success ? setSuccess(true) : setSuccess(false);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const deleteRoutine = async (token, routineId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    console.log(result);
     return result;
   } catch (err) {
     console.error(err);
@@ -162,7 +210,9 @@ export {
   myActivityData,
   myRoutineData,
   createRoutine,
+  AddActivityToRoutine,
   updateRoutine,
+  deleteRoutine,
   postActivity,
   personalRoutineData,
 };

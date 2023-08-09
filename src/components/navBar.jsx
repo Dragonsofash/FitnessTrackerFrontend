@@ -1,11 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Navbar as Navigation, Nav } from "react-bootstrap";
-import Login from "./modals/Login";
-import Register from "./modals/Register";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  Button,
+  Navbar as Navigation,
+  Nav,
+  NavDropdown,
+} from "react-bootstrap";
+import { Link } from "react-router-dom/cjs/react-router-dom";
+// import Login from "./modals/Login";
+// import Register from "./modals/Register";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, onLogout }) => {
   const history = useHistory();
 
   const home = () => {
@@ -31,23 +36,40 @@ const Navbar = () => {
     history.push("/");
   };
   return (
-    <Navigation collapse="lg">
+    <Navigation expand="lg">
       <Navigation.Brand onClick={home}>Fitness Tracker</Navigation.Brand>
-      <Navigation.Toggle aria-controls="basic-navbar-nav" />
-      <Navigation.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+      <Navigation.Toggle aria-controls="navbar-collapse" />
+      <Navigation.Collapse id="navbar-collapse">
+        <Nav className="ml-auto">
+          {isLoggedIn ? (
+            <NavDropdown title="Account" id="account-dropdown">
+              <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
+            </NavDropdown>
+          ) : (
+            <>
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+              <Nav.Link as={Link} to="/register">
+                Register
+              </Nav.Link>
+            </>
+          )}
+          <Button onClick={home}>Home</Button>
           <Button onClick={routines}>Routines</Button>
           <Button onClick={activities}>Activities</Button>
           <Button onClick={account}>My Account</Button>
         </Nav>
       </Navigation.Collapse>
-      <Nav>
-        {/* <Register />
+      <Navigation.Collapse id="navbar-collapse">
+        <Nav>
+          {/* <Register />
         <Login /> */}
-        <Button onClick={login}>Login</Button>
-        <Button onClick={register}>Register</Button>
-        <Button onClick={logOut}>Logout</Button>
-      </Nav>
+          <Button onClick={login}>Login</Button>
+          <Button onClick={register}>Register</Button>
+          <Button onClick={logOut}>Logout</Button>
+        </Nav>
+      </Navigation.Collapse>
     </Navigation>
   );
 };
