@@ -63,20 +63,9 @@ const Navbar = ({ isLoggedIn, onLogout, token }) => {
       <Navigation.Toggle aria-controls="navbar-collapse" />
       <Navigation.Collapse id="navbar-collapse">
         <Nav className="ml-auto">
-          {isLoggedIn ? (
             <NavDropdown title="Account" id="account-dropdown">
               <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
             </NavDropdown>
-          ) : (
-            <>
-              <Nav.Link as={Link} to="/login">
-                Login
-              </Nav.Link>
-              <Nav.Link as={Link} to="/register">
-                Register
-              </Nav.Link>
-            </>
-          )}
           <Button onClick={home}>Home</Button>
           <Button onClick={routines}>Routines</Button>
           <Button onClick={activities}>Activities</Button>

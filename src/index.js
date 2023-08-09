@@ -36,7 +36,7 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [goal, setGoal] = useState("");
   const [name, setName] = useState("");
-  const [id, setId] = useState(0);
+  const [id, setId] = useState("");
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -120,11 +120,11 @@ const App = () => {
             />
           </Route>
 
-          <Route>
+          <Route exact path="/MyRoutines/Add">
             <AddRoutines token={token} />
           </Route>
 
-          <Route>
+          <Route exact path="/EditRoutine">
             <EditRoutine
               token={token}
               name={name}

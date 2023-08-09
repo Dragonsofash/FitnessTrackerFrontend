@@ -3,11 +3,11 @@
 // -the form should have text fields for name and goal(DONE)
 
 // -for each routine which is owned by me I should:
-// --be able to update the name and goal for the routine
-// --be able to delete the entire routine
+// --be able to update the name and goal for the routine(DONE)
+// --be able to delete the entire routine(DONE)
 // --be able to add an activity to a routine via a small form which has a dropdown for all MyRoutines, and inputs for count and duration
-// --be able to update the duration or count of any routine on the routine
-// --be able to remove any routine from the routine
+// --be able to update the duration or count of any activity on the routine
+// --be able to remove any activity from the routine
 
 // STRETCH GOALS
 
@@ -15,12 +15,22 @@
 // -expect the dropdown to add an routine to one of my routines not to include any routine which is already a part of the routine
 
 import { useEffect, useState } from "react";
-import { personalRoutineData } from "../helpers/apiCalls";
+import { deleteRoutine, personalRoutineData } from "../helpers/apiCalls";
 import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
-export const MyRoutines = ({ token, username, setUsername, goal, setGoal, name, setName, id, setId }) => {
+export const MyRoutines = ({
+  token,
+  username,
+  setUsername,
+  goal,
+  setGoal,
+  name,
+  setName,
+  id,
+  setId,
+}) => {
   const [MyRoutines, setMyRoutines] = useState([]);
   const [addRoutine, setAddRoutine] = useState(false);
 
@@ -37,12 +47,13 @@ export const MyRoutines = ({ token, username, setUsername, goal, setGoal, name, 
     }
   };
 
-  const editRoutineButton =(routine)=>{
+  const editRoutineButton = (routine) => {
     setName(routine.name);
     setGoal(routine.goal);
-    setId(routine._id);
-    history.push("/EditRoutine")
-  }
+    setId(routine.id);
+    console.log(id);
+    history.push("/EditRoutine");
+  };
 
   useEffect(() => {
     checkToken();
@@ -72,10 +83,11 @@ export const MyRoutines = ({ token, username, setUsername, goal, setGoal, name, 
                   <p>{activity.description}</p>
                   <p>{activity.duration}</p>
                   <p>{activity.count}</p>
-                  <Button onClick={editRoutineButton}></Button>
                 </li>
               ))}
             </ul>
+            <Button onClick={() => editRoutineButton(routine)}>Edit</Button>
+            <Button onClick={() => deleteRoutine(token, id)}>Delete</Button>
           </Card.Body>
         </Card>
       ))}

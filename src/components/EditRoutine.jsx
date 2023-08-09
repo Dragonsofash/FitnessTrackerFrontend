@@ -10,14 +10,14 @@ const EditRoutine = ({ token, goal, setGoal, name, setName, id, setId }) => {
   const [activities, setActivities] = useState([]);
   const [selectedActivities, setSelectedActivities] = useState([]);
   const history = useHistory();
-
+  
   useEffect(() => {
     myActivityData(setActivities);
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateRoutine(name, goal, token);
+    updateRoutine(id, token, name, goal);
     setName("");
     setGoal("");
     history.push("/Routines/MyRoutines");
@@ -29,7 +29,7 @@ const EditRoutine = ({ token, goal, setGoal, name, setName, id, setId }) => {
 
   return (
     <Container>
-      <h2>Create New Routine</h2>
+      <h2>Edit Routine</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Routine Name</Form.Label>
