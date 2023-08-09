@@ -3,6 +3,8 @@ AddActivities.jsx
 Register.jsx
 Login.jsx
 
+Work on AddRoutines
+
 Clean up files
 
 Work on stretch goals
