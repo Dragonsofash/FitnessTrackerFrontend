@@ -1,15 +1,6 @@
-/* eslint-disable no-unused-expressions */
 const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api";
 
-const registerUser = async (
-  username,
-  password,
-  setToken,
-  token,
-  setLoggedIn,
-  setSuccess,
-  setError
-) => {
+const registerUser = async (username, password, setToken) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
@@ -22,9 +13,6 @@ const registerUser = async (
       }),
     });
     const result = await response.json();
-    localStorage.setItem(token, result.data.token);
-    setToken(result.data.token);
-    result.data.token ? setLoggedIn(true) && setSuccess(true) : null;
     console.log(result);
     return result;
   } catch (err) {
@@ -32,25 +20,7 @@ const registerUser = async (
   }
 };
 
-const checkForAccount = async (username) => {
-  try {
-    const response = await fetch(`${BASE_URL}/users?username=${username}`);
-    const data = await response.json();
-    return data.users.length > 0;
-  } catch (err) {
-    console.error(err);
-    return false;
-  }
-};
-
-const login = async (
-  username,
-  password,
-  setLoggedIn,
-  setToken,
-  setSuccess,
-  setError
-) => {
+const login = async (username, password, setToken) => {
   try {
     const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
@@ -63,7 +33,8 @@ const login = async (
       }),
     });
     const result = await response.json();
-    setToken(result.data.token);
+    console.log(result);
+    setToken(result.token);
     return result;
   } catch (err) {
     console.error(err);
@@ -147,13 +118,51 @@ const updateRoutine = async (id, token, setSuccess, name, goal) => {
   }
 };
 
+const postActivity = async (name, description, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/activities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        description,
+      }),
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const personalRoutineData = async (token, username) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export {
   BASE_URL,
   registerUser,
-  checkForAccount,
   login,
   myActivityData,
   myRoutineData,
   createRoutine,
   updateRoutine,
+  postActivity,
+  personalRoutineData,
 };

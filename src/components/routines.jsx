@@ -11,16 +11,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { myRoutineData } from "../helpers/apiCalls";
+import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+
 
 const Routines = ({ token }) => {
   const [routines, setRoutines] = useState([]);
   const [addRoutines, setAddRoutines] = useState(false);
 
-    const checkToken = () => {
-      if (token.length > 0) {
-        setAddRoutines(true);
-      }
-    };
+  const history = useHistory();
+
+  const handleRoutines = () => {
+    history.push("/Routines/MyRoutines");
+  };
+
+  const checkToken = () => {
+    const storedToken = localStorage.getItem("token");
+      setAddRoutines(true);
+    }
 
   useEffect(() => {
     myRoutineData(setRoutines);
@@ -29,8 +37,8 @@ const Routines = ({ token }) => {
 
   return (
     <>
-      {addRoutines === true && <Link to="/Routine/Add">Add Routine</Link>}
-      {routines.length > 0 && (
+      {addRoutines === true && <Button onClick={handleRoutines}>My Routines</Button>}
+      {routines && (
         <div>
           {routines.map((routine) => (
             <div key={routine._id}>

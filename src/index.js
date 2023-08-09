@@ -21,29 +21,25 @@ import {
   Navbar,
   Activities,
   Routines,
-  // MyRoutines,
+  MyRoutines,
   Login,
   Register,
+  AddActivity,
 } from "./components";
 import { Container } from "react-bootstrap";
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(undefined);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
-  const [id, setId] = useState("");
-  const [edit, setEdit] = useState(false);
-  const [name, setName] = useState("");
-  const [goal, setGoal] = useState("");
-  const [duration, setDuration] = useState(0);
-  const [count, setCount] = useState(0);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
-      setLoggedIn(true);
+    };
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
     }
   }, []);
 
@@ -52,13 +48,18 @@ const App = () => {
     setToken(token);
   };
 
+  const setAndStoreUsername = (username) => {
+    localStorage.setItem("username", username);
+    setUsername(username);
+  };
+
   return (
     <BrowserRouter>
       <Container fluid>
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <Home loggedIn={loggedIn} token={token} setId={setId} />
+            <Home />
           </Route>
 
           <Route exact path="/Activities">
@@ -66,33 +67,25 @@ const App = () => {
           </Route>
 
           <Route exact path="/Routines">
-            <Routines loggedIn={loggedIn} token={token} setId={setId} />
+            <Routines />
           </Route>
 
           <Route exact path="/Register">
-            <Register
-              username={username}
-              password={password}
-              token={token}
-              setLoggedIn={setLoggedIn}
-              setUsername={setUsername}
-              setPassword={setPassword}
-              setToken={setAndStoreToken}
-            />
+            <Register token={token} setToken={setAndStoreToken} username={username} setUsername={setUsername} setAndStoreUsername={setAndStoreUsername} />
           </Route>
 
           <Route exact path="/Login">
-            <Login
-              username={username}
-              password={password}
-              token={token}
-              loggedIn={loggedIn}
-              setLoggedIn={setLoggedIn}
-              setToken={setAndStoreToken}
-              setUsername={setUsername}
-              setPassword={setPassword}
-            />
+            <Login token={token} setToken={setAndStoreToken} username={username} setUsername={setUsername} setAndStoreUsername={setAndStoreUsername}/>
           </Route>
+
+          <Route exact path="/Activities/Add">
+            <AddActivity token={token} />
+          </Route>
+
+          <Route exact path="/Routines/MyRoutines">
+            <MyRoutines token={token} username={username} setUsername={setUsername}/>
+          </Route>
+
         </Switch>
       </Container>
     </BrowserRouter>

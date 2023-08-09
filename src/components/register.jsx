@@ -1,33 +1,17 @@
 import React, { useState } from "react";
 import { registerUser } from "../helpers/apiCalls";
 
-export const Register = ({
-  username,
-  setUsername,
-  password,
-  setPassword,
-  setToken,
-  setLoggedIn,
-}) => {
+export const Register = ({ setToken, username, setUsername, setAndStoreUsername }) => {
   const [passConfirm, setPassConfirm] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-
-  // const handleChange = (event) => {
-  //   setUsername(event.target.value);
-  // };
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(username);
-    registerUser(
-      username,
-      password,
-      setToken,
-      setLoggedIn,
-      setSuccess,
-      setError
-    );
+    registerUser(username, password, setToken);
+    setAndStoreUsername(username);
     setUsername("");
     setPassword("");
     setPassConfirm("");

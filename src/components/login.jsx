@@ -4,34 +4,22 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { login } from "../helpers/apiCalls";
 
-const Login = ({
-  username,
-  setUsername,
-  password,
-  setPassword,
-  setToken,
-  loggedIn,
-  setLoggedIn,
-}) => {
+const Login = ({ setToken, username, setUsername, setAndStoreUsername }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-
-  // const handleChange = (event) => {
-  //   setUsername(event.target.value);
-  // };
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(username);
     console.log(password);
-    login(username, password, setLoggedIn, setToken, setSuccess, setError);
+    login(username, password, setToken);
+    setAndStoreUsername(username);
     setUsername("");
     setPassword("");
   };
 
-  return loggedIn ? (
-    <Redirect to="/" />
-  ) : (
+  return (
     <div id="container">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
